@@ -151,7 +151,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     _clearWords();
                   }),
-              IconButton(icon: Icon(Icons.list))
+              IconButton(
+                icon: Icon(Icons.list),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SecondRoute(words)),
+                  );
+                },
+              )
             ]),
             Text('Words: ' + wordsStr)
           ],
@@ -162,6 +170,32 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Doing nothing',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  final List<String> words;
+
+  SecondRoute(this.words) {}
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Route"),
+      ),
+      body: Center(
+        child: Column(children: <Widget>[
+          Text(words.toString()),
+          ElevatedButton(
+            onPressed: () {
+              // Navigate back to first route when tapped.
+              Navigator.pop(context);
+            },
+            child: Text('Go back!'),
+          ),
+        ]),
+      ),
     );
   }
 }
